@@ -3,6 +3,7 @@ import random
 from pygame.locals import *
 
 notes = {}
+channels = {}
 clock = pygame.time.Clock()
 screen = None
 
@@ -38,12 +39,11 @@ class Burst():
                 #print "Drawing", self.colour
 
 class Canvas():
-    
     def __init__(self):
         self.bursts = []
 
     def update(self):
-        global screen, notes
+        global screen, notes, channels
         #print "Updating canvas"
         for b in self.bursts:
             if b.count < 15:
@@ -61,49 +61,49 @@ class Canvas():
                 if e.key == K_a:
                     self.bursts.append(Burst(30, 80, (0, 0, 128), 0, 
                         notes['c']))
-                    notes['c'].play()
-                    print "C"
+                    channels['c_chan'].play(notes['c'])
+                    #print "C"
 
                 elif e.key == K_s:
                     self.bursts.append(Burst(110, 80, (0, 0, 255), 0, 
                         notes['d']))
-                    notes['d'].play()
-                    print "D"
+                    channels['d_chan'].play(notes['d'])
+                    #print "D"
                 elif e.key == K_d:
                     self.bursts.append(Burst(190, 80, (0, 128, 0), 0, 
                         notes['e']))
-                    notes['e'].play()
-                    print "E"
+                    channels['e_chan'].play(notes['e'])
+                    #print "E"
 
                 elif e.key == K_f:
                     self.bursts.append(Burst(270, 80, (0, 128, 128), 0, 
                         notes['f']))
-                    notes['f'].play()
-                    print "F"
+                    channels['f_chan'].play(notes['f'])
+                    #print "F"
 
                 elif e.key == K_j:
                     self.bursts.append(Burst(350, 80, (0, 255, 0), 0,
                         notes['g']))
-                    notes['g'].play()
-                    print "G"
+                    channels['g_chan'].play(notes['g'])
+                    #print "G"
 
                 elif e.key == K_k:
                     self.bursts.append(Burst(430, 80, (0, 255, 128), 0, 
                         notes['a']))
-                    notes['a'].play()
-                    print "A"
+                    channels['a_chan'].play(notes['a'])
+                    #print "A"
 
                 elif e.key == K_l:
                     self.bursts.append(Burst(510, 80, (0, 255, 255), 0, 
                         notes['b']))
-                    notes['b'].play()
-                    print "B"
+                    channels['b_chan'].play(notes['b'])
+                    #print "B"
 
                 elif e.key == K_SEMICOLON:
                     self.bursts.append(Burst(590, 80, (128, 0, 0), 0, 
                         notes['hc']))
-                    notes['hc'].play()
-                    print "HC"
+                    channels['hc_chan'].play(notes['hc'])
+                    #print "HC"
                 elif e.key == K_SPACE:
                     print self.bursts
                     #for a in self.bursts:
@@ -111,9 +111,17 @@ class Canvas():
         
 
 def main():
-    global screen, notes
+    global screen, notes, channels
     pygame.init()
     notes = {'c': pygame.mixer.Sound('note_c.ogg'), 'd': pygame.mixer.Sound('note_d.ogg'), 'e': pygame.mixer.Sound('note_e.ogg'), 'f': pygame.mixer.Sound('note_f.ogg'), 'g': pygame.mixer.Sound('note_g.ogg'), 'a': pygame.mixer.Sound('note_a.ogg'), 'b': pygame.mixer.Sound('note_b.ogg'), 'hc': pygame.mixer.Sound('note_hc.ogg')}
+    channels = {'c_chan': pygame.mixer.Channel(0), 
+            'd_chan': pygame.mixer.Channel(1), 
+            'e_chan': pygame.mixer.Channel(2), 
+            'f_chan': pygame.mixer.Channel(3), 
+            'g_chan': pygame.mixer.Channel(4), 
+            'a_chan': pygame.mixer.Channel(5),
+            'b_chan': pygame.mixer.Channel(6),
+            'hc_chan':pygame.mixer.Channel(7)}
     screen = pygame.display.set_mode((640, 200))
     c = Canvas()
     while True:
