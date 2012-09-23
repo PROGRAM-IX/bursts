@@ -15,7 +15,7 @@ class Particle():
         self.rect = pygame.Rect(self.x, self.y, self.size, self.size)
 
 
-    class Burst():
+class Burst():
     def __init__(self, x, y, colour, count, sound):
         self.x = x
         self.y = y
