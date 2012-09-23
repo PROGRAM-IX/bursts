@@ -38,14 +38,20 @@ class Burst():
                 #print "Drawing", self.colour
 
 class Canvas():
-    bursts = []
+    
+    def __init__(self):
+        self.bursts = []
 
     def update(self):
         global screen, notes
         #print "Updating canvas"
         for b in self.bursts:
-            b.update()
-            b.draw()
+            if b.count < 15:
+                b.update()
+                b.draw()
+                b.count += 1
+            else:
+                self.bursts.remove(b)
             #print b
             
         for e in pygame.event.get():
