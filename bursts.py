@@ -26,7 +26,10 @@ class Burst():
         self.particles = []
         self.particles.append(Particle(self.x, self.y, 5, self.colour))
     def update(self):
-        self.particles.append(Particle(random.randint(1, 30) + self.x, random.randint(1, 30) + self.y, 5, self.colour))
+        self.particles.append(Particle(random.randint(1, 30) + self.x, 
+            random.randint(1, 30) + self.y, 5, self.colour))
+                
+
     def draw(self):
         global screen
         for p in self.particles:
@@ -113,7 +116,14 @@ class Canvas():
 def main():
     global screen, notes, channels
     pygame.init()
-    notes = {'c': pygame.mixer.Sound('note_c.ogg'), 'd': pygame.mixer.Sound('note_d.ogg'), 'e': pygame.mixer.Sound('note_e.ogg'), 'f': pygame.mixer.Sound('note_f.ogg'), 'g': pygame.mixer.Sound('note_g.ogg'), 'a': pygame.mixer.Sound('note_a.ogg'), 'b': pygame.mixer.Sound('note_b.ogg'), 'hc': pygame.mixer.Sound('note_hc.ogg')}
+    notes = {'c': pygame.mixer.Sound('note_c.ogg'), 
+            'd': pygame.mixer.Sound('note_d.ogg'), 
+            'e': pygame.mixer.Sound('note_e.ogg'), 
+            'f': pygame.mixer.Sound('note_f.ogg'), 
+            'g': pygame.mixer.Sound('note_g.ogg'), 
+            'a': pygame.mixer.Sound('note_a.ogg'), 
+            'b': pygame.mixer.Sound('note_b.ogg'),
+            'hc': pygame.mixer.Sound('note_hc.ogg')}
     channels = {'c_chan': pygame.mixer.Channel(0), 
             'd_chan': pygame.mixer.Channel(1), 
             'e_chan': pygame.mixer.Channel(2), 
@@ -122,6 +132,14 @@ def main():
             'a_chan': pygame.mixer.Channel(5),
             'b_chan': pygame.mixer.Channel(6),
             'hc_chan':pygame.mixer.Channel(7)}
+    channels['c_chan'].set_volume(0.5)
+    channels['d_chan'].set_volume(0.5)
+    channels['e_chan'].set_volume(0.5)
+    channels['f_chan'].set_volume(0.5)
+    channels['g_chan'].set_volume(0.5)
+    channels['a_chan'].set_volume(0.5)
+    channels['b_chan'].set_volume(0.5)
+    channels['hc_chan'].set_volume(0.5)
     screen = pygame.display.set_mode((640, 200))
     c = Canvas()
     while True:
