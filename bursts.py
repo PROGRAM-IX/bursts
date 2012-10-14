@@ -8,6 +8,7 @@ clock = pygame.time.Clock()
 screen = None
 
 class Particle():
+
     def __init__(self, x, y, size, colour):
         self.x = x
         self.y = y
@@ -17,6 +18,7 @@ class Particle():
 
 
 class Burst():
+
     def __init__(self, x, y, colour, count, sound):
         self.x = x
         self.y = y
@@ -25,11 +27,12 @@ class Burst():
         self.sound = sound
         self.particles = []
         self.particles.append(Particle(self.x, self.y, 5, self.colour))
+
     def update(self):
         self.particles.append(Particle(random.randint(1, 30) + self.x, 
-            random.randint(1, 30) + self.y, 5, self.colour))    
-        self.y += random.randint(-100, 100)
-        self.x += random.randint(-100, 100)
+            random.randint(1, 30) + self.y, 2, self.colour))    
+        self.y += random.randint(-50, 50)
+        self.x += random.randint(-50, 50)
         modR = random.randint(-40, 40)
         modG = random.randint(-40, 40)
         modB = random.randint(-40, 40)
@@ -39,18 +42,14 @@ class Burst():
             self.colour.g += modG
         if self.colour.b + modB <= 255 and self.colour.b + modB >=0:
             self.colour.b += modB
+
     def draw(self):
         global screen
         for p in self.particles:
-            pygame.draw.rect(screen, p.colour, p.rect) # This draws the particles correctly
-            #pygame.draw.rect(screen, self.colour, p.rect) # This draws the particles all the same colour
-            #pygame.draw.rect(screen, p.colour, (60, 60, 120, 120), 4)
-            
-            #screen.fill(p.colour, p.rect)
-            #if self.particles.index(p) == 0:
-                #print "Drawing", self.colour
+            pygame.draw.rect(screen, p.colour, p.rect) 
 
 class Canvas():
+    
     def __init__(self):
         self.bursts = []
 
@@ -58,13 +57,12 @@ class Canvas():
         global screen, notes, channels
         #print "Updating canvas"
         for b in self.bursts:
-            if b.count < 30:
+            if b.count < 15:
                 b.update()
                 b.draw()
                 b.count += 1
             else:
                 self.bursts.remove(b)
-            #print b
             
         for e in pygame.event.get():
             if e.type == KEYDOWN:
@@ -141,14 +139,8 @@ def main():
             'a_chan': pygame.mixer.Channel(5),
             'b_chan': pygame.mixer.Channel(6),
             'hc_chan':pygame.mixer.Channel(7)}
-    channels['c_chan'].set_volume(0.5)
-    channels['d_chan'].set_volume(0.5)
-    channels['e_chan'].set_volume(0.5)
-    channels['f_chan'].set_volume(0.5)
-    channels['g_chan'].set_volume(0.5)
-    channels['a_chan'].set_volume(0.5)
-    channels['b_chan'].set_volume(0.5)
-    channels['hc_chan'].set_volume(0.5)
+    for c in channels:
+        channels[c].set_volume(0.2)
     screen = pygame.display.set_mode((640, 200))
     c = Canvas()
     while True:
