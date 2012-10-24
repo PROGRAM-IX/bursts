@@ -22,28 +22,12 @@ import pygame
 import random
 from pygame.locals import *
 
-from canvas import Canvas
-from burst import Burst
-from particle import Particle
+class Particle():
 
-notes = {}
-channels = {}
-clock = pygame.time.Clock()
-screen = None
+    def __init__(self, x, y, size, colour):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.colour = colour
+        self.rect = pygame.Rect(self.x, self.y, self.size, self.size)
 
-def main():
-    global screen
-    pygame.init()
-    can = Canvas()
-    for c in can.channels:
-        can.channels[c].set_volume(0.2)
-    screen = pygame.display.set_mode((640, 200))
-    
-    while True:
-        screen.fill((0, 0, 0))
-        can.update(screen)
-        pygame.display.update()
-        clock.tick(30)
-
-if __name__ == "__main__":
-    main()
