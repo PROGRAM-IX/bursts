@@ -34,9 +34,11 @@ screen = None
 def main():
     global screen
     pygame.init()
+    pygame.mixer.quit()
+    pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=128)
     can = Canvas()
     for c in can.channels:
-        can.channels[c].set_volume(0.2)
+        can.channels[c].set_volume(0.1)
     screen = pygame.display.set_mode((640, 200))
     
     while True:
